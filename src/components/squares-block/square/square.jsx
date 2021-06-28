@@ -6,7 +6,7 @@ import styles from "./square.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Square = () => <div className={cx("wrapper")}></div>;
+const Square = ({ position }) => <div className={cx("wrapper")}></div>;
 
 Square.propTypes = {};
 

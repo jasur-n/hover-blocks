@@ -37,20 +37,24 @@ const SquaresBlock = ({ fields }) => {
 
   useEffect(() => {
     const squaresContainer = squaresContainerRef.current;
+    console.log(squaresContainer);
     if (squaresContainer) {
-      squaresContainer.addEventListener("hover", handleHover);
+      squaresContainer.addEventListener("hover", (event) => console.log(event));
     }
     return () => {
       squaresContainer.removeEventListener("hover", handleHover);
     };
-  }, [squaresContainerRef]);
+  }, []);
   return (
     ids && (
       <div ref={squaresContainerRef} className={cx("wrapper")}>
-        {ids.map((row, index) => (
-          <div className={cx("row")} key={index}>
-            {row.map((id) => (
-              <Square key={id} />
+        {ids.map((row, rowIndex) => (
+          <div className={cx("row")} key={rowIndex}>
+            {row.map((id, index) => (
+              <Square
+                key={id}
+                position={{ row: rowIndex + 1, col: index + 1 }}
+              />
             ))}
           </div>
         ))}
