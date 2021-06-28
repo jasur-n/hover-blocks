@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import { v4 as uuidv4 } from "uuid";
@@ -24,13 +24,29 @@ const createSquareMatrix = (limit) => {
 
 const SquaresBlock = ({ fields }) => {
   const [ids, setIds] = useState(null);
-  console.log(fields);
+  const squaresContainerRef = useRef(null);
+
   useEffect(() => {
     createSquareMatrix(fields).then((matrix) => setIds(matrix));
   }, [fields]);
+
+  const handleHover = (event) => {
+    console.log(event);
+    console.log("hover");
+  };
+
+  useEffect(() => {
+    const squaresContainer = squaresContainerRef.current;
+    if (squaresContainer) {
+      squaresContainer.addEventListener("hover", handleHover);
+    }
+    return () => {
+      squaresContainer.removeEventListener("hover", handleHover);
+    };
+  }, [squaresContainerRef]);
   return (
     ids && (
-      <div className={cx("wrapper")}>
+      <div ref={squaresContainerRef} className={cx("wrapper")}>
         {ids.map((row, index) => (
           <div className={cx("row")} key={index}>
             {row.map((id) => (
