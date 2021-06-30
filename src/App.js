@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import classNames from "classnames/bind";
 
-function App() {
+import SquaresBlock from "./components/squares-block/squares-block";
+import SelectMode from "./components/select-mode/select-mode";
+import styles from "./app.module.scss";
+
+const cx = classNames.bind(styles);
+
+const App = () => {
+  const [modes, setModes] = useState(null);
+  const [activeMode, setActiveMode] = useState("default");
+
+  //Fetch available modes from remote url and save data in state
+  useEffect(() => {
+    fetch("http://demo1030918.mockable.io/")
+      .then((response) => response.json())
+      .then((data) => setModes(data));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={cx("wrapper")}>
+      <div className={cx("inner")}>
+        <div className={cx("left")}>
+          <SelectMode
+            modes={modes}
+            activeMode={activeMode}
+            setActiveMode={setActiveMode}
+          />
+
+          {modes && <SquaresBlock fields={modes[activeMode].field} />}
+        </div>
+        The dummy message
+      </div>
     </div>
   );
-}
+};
 
 export default App;
