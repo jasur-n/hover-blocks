@@ -28,7 +28,7 @@ const App = () => {
             setActiveMode={setActiveMode}
           />
 
-          {modes && <SquaresBlock fields={modes[activeMode].field} />}
+          <SquaresBlock fields={modes && modes[activeMode]?.field} />
         </div>
         The dummy message
       </div>

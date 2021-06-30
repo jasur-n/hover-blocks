@@ -27,7 +27,9 @@ const SquaresBlock = ({ fields }) => {
   const squaresContainerRef = useRef(null);
 
   useEffect(() => {
-    createSquareMatrix(fields).then((matrix) => setIds(matrix));
+    if (fields) {
+      createSquareMatrix(fields).then((matrix) => setIds(matrix));
+    }
   }, [fields]);
 
   const hoverHandler = (event) => {
@@ -35,20 +37,21 @@ const SquaresBlock = ({ fields }) => {
     console.log("hover");
   };
 
-  useEffect(() => {
-    const squaresContainer = squaresContainerRef.current;
-    console.log(squaresContainer);
-    if (squaresContainer) {
-      squaresContainer.addEventListener("hover", (event) => console.log(event));
-    }
-    return () => {
-      squaresContainer.removeEventListener("hover", hoverHandler);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const squaresContainer = squaresContainerRef.current;
+  //   console.log(squaresContainer);
+  //   if (squaresContainer) {
+  //     squaresContainer.addEventListener("hover", (event) => console.log(event));
+  //   }
+  //   return () => {
+  //     squaresContainer.removeEventListener("hover", hoverHandler);
+  //   };
+  // }, []);
+
   return (
-    ids && (
-      <div ref={squaresContainerRef} className={cx("wrapper")}>
-        {ids.map((row, rowIndex) => (
+    <div ref={squaresContainerRef} className={cx("wrapper")}>
+      {ids &&
+        ids.map((row, rowIndex) => (
           <div className={cx("row")} key={rowIndex}>
             {row.map((id, index) => (
               <Square
@@ -58,8 +61,7 @@ const SquaresBlock = ({ fields }) => {
             ))}
           </div>
         ))}
-      </div>
-    )
+    </div>
   );
 };
 
