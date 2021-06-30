@@ -30,7 +30,7 @@ const SquaresBlock = ({ fields }) => {
     createSquareMatrix(fields).then((matrix) => setIds(matrix));
   }, [fields]);
 
-  const handleHover = (event) => {
+  const hoverHandler = (event) => {
     console.log(event);
     console.log("hover");
   };
@@ -42,7 +42,7 @@ const SquaresBlock = ({ fields }) => {
       squaresContainer.addEventListener("hover", (event) => console.log(event));
     }
     return () => {
-      squaresContainer.removeEventListener("hover", handleHover);
+      squaresContainer.removeEventListener("hover", hoverHandler);
     };
   }, []);
   return (
