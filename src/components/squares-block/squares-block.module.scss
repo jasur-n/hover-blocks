@@ -1,7 +1,16 @@
 .wrapper {
+  width: 300px;
+  height: 300px;
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
   display: flex;
+  flex-grow: 1;
+
+  & > * {
+    flex-grow: 1;
+  }
 }
