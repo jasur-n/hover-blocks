@@ -19,8 +19,17 @@ const HoveredList = ({ hovered }) => (
   </div>
 );
 
-HoveredList.propTypes = {};
+HoveredList.propTypes = {
+  hovered: PropTypes.arrayOf(
+    PropTypes.shape({
+      col: PropTypes.number,
+      row: PropTypes.number,
+    })
+  ),
+};
 
-HoveredList.defaultProps = {};
+HoveredList.defaultProps = {
+  hovered: null,
+};
 
 export default HoveredList;

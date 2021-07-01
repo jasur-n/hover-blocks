@@ -85,7 +85,7 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
                   element.row === position.row && element.col === position.col
               );
               return (
-                <Square key={id} position={position} isHovered={isHovered} />
+                <Square key={id} position={position} isHovered={!!isHovered} />
               );
             })}
           </div>
@@ -94,8 +94,15 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
   );
 };
 
-SquaresBlock.propTypes = {};
-
-SquaresBlock.defaultProps = {};
+SquaresBlock.propTypes = {
+  fields: PropTypes.number,
+  hovered: PropTypes.arrayOf(
+    PropTypes.shape({
+      col: PropTypes.number,
+      row: PropTypes.number,
+    })
+  ).isRequired,
+  setHovered: PropTypes.func,
+};
 
 export default SquaresBlock;

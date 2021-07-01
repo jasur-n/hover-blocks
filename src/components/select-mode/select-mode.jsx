@@ -37,8 +37,10 @@ const SelectMode = ({ modes, activeMode, startHandler }) => {
   );
 };
 
-SelectMode.propTypes = {};
-
-SelectMode.defaultProps = {};
+SelectMode.propTypes = {
+  modes: PropTypes.object,
+  activeMode: PropTypes.string.isRequired,
+  startHandler: PropTypes.func,
+};
 
 export default React.memo(SelectMode);

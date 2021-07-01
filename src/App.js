@@ -19,7 +19,7 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => setModes(data))
       .catch((err) => {
-        console.log(new Error(err));
+        console.error(new Error(err));
       });
   }, []);
 
@@ -50,4 +50,4 @@ const App = () => {
   );
 };
 
-export default React.memo(App);
+export default App;

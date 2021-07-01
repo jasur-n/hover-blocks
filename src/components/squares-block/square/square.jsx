@@ -13,7 +13,13 @@ const Square = ({ position, isHovered }) => (
   ></div>
 );
 
-Square.propTypes = {};
+Square.propTypes = {
+  position: PropTypes.shape({
+    col: PropTypes.number,
+    row: PropTypes.number,
+  }),
+  isHovered: PropTypes.bool.isRequired,
+};
 
 Square.defaultProps = {};
 
