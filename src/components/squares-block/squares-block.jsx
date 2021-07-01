@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import { v4 as uuidv4 } from "uuid";
@@ -22,7 +22,7 @@ const createSquareMatrix = (limit) => {
   });
 };
 
-const SquaresBlock = ({ fields }) => {
+const SquaresBlock = ({ fields, hovered, setHovered }) => {
   const [ids, setIds] = useState(null);
   const squaresContainerRef = useRef(null);
 
@@ -32,31 +32,57 @@ const SquaresBlock = ({ fields }) => {
     }
   }, [fields]);
 
-  const hoverHandler = (event) => {
-    console.log(event);
-    console.log("hover");
-  };
+  const hoverHandler = useCallback(
+    (event) => {
+      const newPosition = event.target.dataset?.position;
 
-  // useEffect(() => {
-  //   const squaresContainer = squaresContainerRef.current;
-  //   console.log(squaresContainer);
-  //   if (squaresContainer) {
-  //     squaresContainer.addEventListener("hover", (event) => console.log(event));
-  //   }
-  //   return () => {
-  //     squaresContainer.removeEventListener("hover", hoverHandler);
-  //   };
-  // }, []);
+      if (!newPosition) {
+        return;
+      }
+
+      const parsedPosition = JSON.parse(newPosition);
+
+      setHovered((prevState) => {
+        const foundPosition = prevState.find(
+          (element) =>
+            element.row === parsedPosition.row &&
+            element.col === parsedPosition.col
+        );
+
+        if (foundPosition === undefined) {
+          return [...prevState, parsedPosition];
+        }
+
+        return prevState.filter(
+          (element) =>
+            element.row !== parsedPosition.row &&
+            element.col !== parsedPosition.col
+        );
+      });
+    },
+    [setHovered]
+  );
+
+  useEffect(() => {
+    const squaresContainer = squaresContainerRef.current;
+    if (squaresContainer && ids) {
+      squaresContainer.addEventListener("mouseover", hoverHandler);
+    }
+    return () => {
+      squaresContainer.removeEventListener("mouseover", hoverHandler);
+    };
+  }, [hoverHandler, ids]);
 
   return (
     <div ref={squaresContainerRef} className={cx("wrapper")}>
       {ids &&
         ids.map((row, rowIndex) => (
           <div className={cx("row")} key={rowIndex}>
-            {row.map((id, index) => (
+            {row.map((id, colIndex) => (
               <Square
                 key={id}
-                position={{ row: rowIndex + 1, col: index + 1 }}
+                position={{ row: rowIndex + 1, col: colIndex + 1 }}
+                hovered={hovered}
               />
             ))}
           </div>

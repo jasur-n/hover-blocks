@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 const App = () => {
   const [modes, setModes] = useState(null);
   const [activeMode, setActiveMode] = useState("default");
+  const [hovered, setHovered] = useState([]);
 
   //Fetch available modes from remote url and save data in state
   useEffect(() => {
@@ -17,6 +18,8 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => setModes(data));
   }, []);
+
+  console.log(hovered);
 
   return (
     <div className={cx("wrapper")}>
@@ -28,9 +31,15 @@ const App = () => {
             setActiveMode={setActiveMode}
           />
 
-          <SquaresBlock fields={modes && modes[activeMode]?.field} />
+          <SquaresBlock
+            hovered={hovered}
+            setHovered={setHovered}
+            fields={modes && modes[activeMode]?.field}
+          />
         </div>
-        The dummy message
+        <div className={cx("right")}>
+          <h2>Hover Squares</h2>
+        </div>
       </div>
     </div>
   );
