@@ -55,7 +55,7 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
 
         return prevState.filter(
           (element) =>
-            element.row !== parsedPosition.row &&
+            element.row !== parsedPosition.row ||
             element.col !== parsedPosition.col
         );
       });
