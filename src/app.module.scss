@@ -6,4 +6,15 @@
 .inner {
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 678px) {
+    flex-direction: column;
+
+    .left {
+      margin-bottom: 50px;
+      max-width: 320px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
 }
