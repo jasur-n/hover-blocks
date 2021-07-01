@@ -23,12 +23,12 @@ const createSquareMatrix = (limit) => {
 };
 
 const SquaresBlock = ({ fields, hovered, setHovered }) => {
-  const [ids, setIds] = useState(null);
+  const [elements, setElements] = useState(null);
   const squaresContainerRef = useRef(null);
 
   useEffect(() => {
     if (fields) {
-      createSquareMatrix(fields).then((matrix) => setIds(matrix));
+      createSquareMatrix(fields).then((matrix) => setElements(matrix));
     }
   }, [fields]);
 
@@ -65,18 +65,18 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
 
   useEffect(() => {
     const squaresContainer = squaresContainerRef.current;
-    if (squaresContainer && ids) {
+    if (squaresContainer && elements) {
       squaresContainer.addEventListener("mouseover", hoverHandler);
     }
     return () => {
       squaresContainer.removeEventListener("mouseover", hoverHandler);
     };
-  }, [hoverHandler, ids]);
+  }, [hoverHandler, elements]);
 
   return (
     <div ref={squaresContainerRef} className={cx("wrapper")}>
-      {ids &&
-        ids.map((row, rowIndex) => (
+      {elements &&
+        elements.map((row, rowIndex) => (
           <div className={cx("row")} key={rowIndex}>
             {row.map((id, colIndex) => {
               const position = { row: rowIndex + 1, col: colIndex + 1 };
