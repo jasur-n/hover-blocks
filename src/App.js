@@ -15,7 +15,10 @@ const App = () => {
 
   //Fetch available modes from remote url and save data in state
   useEffect(() => {
-    fetch("http://demo1030918.mockable.io/")
+    Promise.race([
+      fetch("https://demo1030918.mockable.io/"),
+      fetch("http://demo1030918.mockable.io/"),
+    ])
       .then((response) => response.json())
       .then((data) => setModes(data))
       .catch((err) => {
