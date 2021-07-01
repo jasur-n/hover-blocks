@@ -17,7 +17,10 @@ const App = () => {
   useEffect(() => {
     fetch("http://demo1030918.mockable.io/")
       .then((response) => response.json())
-      .then((data) => setModes(data));
+      .then((data) => setModes(data))
+      .catch((err) => {
+        console.log(new Error(err));
+      });
   }, []);
 
   const startHandler = (mode) => {
@@ -47,4 +50,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default React.memo(App);

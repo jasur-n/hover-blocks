@@ -41,4 +41,4 @@ SelectMode.propTypes = {};
 
 SelectMode.defaultProps = {};
 
-export default SelectMode;
+export default React.memo(SelectMode);

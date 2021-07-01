@@ -17,4 +17,4 @@ Square.propTypes = {};
 
 Square.defaultProps = {};
 
-export default Square;
+export default React.memo(Square);
