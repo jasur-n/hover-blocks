@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import SquaresBlock from "./components/squares-block/squares-block";
 import SelectMode from "./components/select-mode/select-mode";
 import styles from "./app.module.scss";
+import HoveredList from "./components/hovered-list/hovered-list";
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +41,7 @@ const App = () => {
             fields={modes && modes[activeMode]?.field}
           />
         </div>
-        <div className={cx("right")}></div>
+        <HoveredList hovered={hovered} />
       </div>
     </div>
   );
