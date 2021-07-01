@@ -6,8 +6,11 @@ import styles from "./square.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Square = ({ position }) => (
-  <div data-position={JSON.stringify(position)} className={cx("wrapper")}></div>
+const Square = ({ position, isHovered }) => (
+  <div
+    data-position={JSON.stringify(position)}
+    className={cx("wrapper", { hovered: isHovered })}
+  ></div>
 );
 
 Square.propTypes = {};

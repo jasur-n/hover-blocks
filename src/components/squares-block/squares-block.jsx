@@ -78,13 +78,16 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
       {ids &&
         ids.map((row, rowIndex) => (
           <div className={cx("row")} key={rowIndex}>
-            {row.map((id, colIndex) => (
-              <Square
-                key={id}
-                position={{ row: rowIndex + 1, col: colIndex + 1 }}
-                hovered={hovered}
-              />
-            ))}
+            {row.map((id, colIndex) => {
+              const position = { row: rowIndex + 1, col: colIndex + 1 };
+              const isHovered = hovered.find(
+                (element) =>
+                  element.row === position.row && element.col === position.col
+              );
+              return (
+                <Square key={id} position={position} isHovered={isHovered} />
+              );
+            })}
           </div>
         ))}
     </div>
