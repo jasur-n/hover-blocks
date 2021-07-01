@@ -19,7 +19,10 @@ const App = () => {
       .then((data) => setModes(data));
   }, []);
 
-  console.log(hovered);
+  const startHandler = (mode) => {
+    setHovered([]);
+    setActiveMode(mode);
+  };
 
   return (
     <div className={cx("wrapper")}>
@@ -28,7 +31,7 @@ const App = () => {
           <SelectMode
             modes={modes}
             activeMode={activeMode}
-            setActiveMode={setActiveMode}
+            startHandler={startHandler}
           />
 
           <SquaresBlock
@@ -37,9 +40,7 @@ const App = () => {
             fields={modes && modes[activeMode]?.field}
           />
         </div>
-        <div className={cx("right")}>
-          <h2>Hover Squares</h2>
-        </div>
+        <div className={cx("right")}></div>
       </div>
     </div>
   );

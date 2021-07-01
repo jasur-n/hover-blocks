@@ -6,7 +6,7 @@ import styles from "./select-mode.module.scss";
 
 const cx = classNames.bind(styles);
 
-const SelectMode = ({ modes, activeMode, setActiveMode }) => {
+const SelectMode = ({ modes, activeMode, startHandler }) => {
   const [selectedMode, setSelectedMode] = useState(activeMode);
   return (
     <div className={cx("wrapper")}>
@@ -28,7 +28,7 @@ const SelectMode = ({ modes, activeMode, setActiveMode }) => {
         </select>
         <button
           disabled={selectedMode === "default"}
-          onClick={() => setActiveMode(selectedMode)}
+          onClick={() => startHandler(selectedMode)}
         >
           Start
         </button>
