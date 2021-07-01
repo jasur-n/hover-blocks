@@ -12,4 +12,4 @@ Snackbar.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-export default Snackbar;
+export default React.memo(Snackbar);
