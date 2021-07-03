@@ -8,16 +8,13 @@ const cx = classNames.bind(styles);
 
 const Square = ({ position, isHovered }) => (
   <div
-    data-position={JSON.stringify(position)}
+    data-position={position}
     className={cx("wrapper", { hovered: isHovered })}
   ></div>
 );
 
 Square.propTypes = {
-  position: PropTypes.shape({
-    col: PropTypes.number,
-    row: PropTypes.number,
-  }),
+  position: PropTypes.string.isRequired,
   isHovered: PropTypes.bool.isRequired,
 };
 

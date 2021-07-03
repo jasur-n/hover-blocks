@@ -40,24 +40,14 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
         return;
       }
 
-      const parsedPosition = JSON.parse(newPosition);
-
       setHovered((prevState) => {
-        const foundPosition = prevState.find(
-          (element) =>
-            element.row === parsedPosition.row &&
-            element.col === parsedPosition.col
-        );
-
-        if (foundPosition === undefined) {
-          return [...prevState, parsedPosition];
+        const newHoveredList = new Set(prevState);
+        if (newHoveredList.has(newPosition)) {
+          newHoveredList.delete(newPosition);
+        } else {
+          newHoveredList.add(newPosition);
         }
-
-        return prevState.filter(
-          (element) =>
-            element.row !== parsedPosition.row ||
-            element.col !== parsedPosition.col
-        );
+        return newHoveredList;
       });
     },
     [setHovered]
@@ -79,13 +69,10 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
         elements.map((row, rowIndex) => (
           <div className={cx("row")} key={row[0]}>
             {row.map((id, colIndex) => {
-              const position = { row: rowIndex + 1, col: colIndex + 1 };
-              const isHovered = hovered.find(
-                (element) =>
-                  element.row === position.row && element.col === position.col
-              );
+              const position = `row ${rowIndex + 1} col ${colIndex + 1}`;
+              const isHovered = hovered.has(position);
               return (
-                <Square key={id} position={position} isHovered={!!isHovered} />
+                <Square key={id} position={position} isHovered={isHovered} />
               );
             })}
           </div>
@@ -96,12 +83,7 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
 
 SquaresBlock.propTypes = {
   fields: PropTypes.number,
-  hovered: PropTypes.arrayOf(
-    PropTypes.shape({
-      col: PropTypes.number,
-      row: PropTypes.number,
-    })
-  ).isRequired,
+  hovered: PropTypes.object.isRequired,
   setHovered: PropTypes.func,
 };
 

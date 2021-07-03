@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 const App = () => {
   const [modes, setModes] = useState(null);
   const [activeMode, setActiveMode] = useState("default");
-  const [hovered, setHovered] = useState([]);
+  const [hovered, setHovered] = useState(new Set());
 
   //Fetch available modes from remote url and save data in state
   useEffect(() => {
@@ -24,7 +24,7 @@ const App = () => {
   }, []);
 
   const startHandler = (mode) => {
-    setHovered([]);
+    setHovered(new Set());
     setActiveMode(mode);
   };
 

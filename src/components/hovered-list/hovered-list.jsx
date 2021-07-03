@@ -11,21 +11,16 @@ const HoveredList = ({ hovered }) => (
   <div className={cx("wrapper")}>
     <h2>Hovered squares</h2>
     <div className={cx("container")}>
-      {hovered.map((el) => {
-        const text = `row ${el.row} col ${el.col}`;
-        return <Snackbar key={text} text={text} />; //text here is used as key as there are not two snackbars with the same text
+      {/* translate a set to an array to get access to a map function */}
+      {[...hovered].map((el) => {
+        return <Snackbar key={el} text={el} />; //position here is used as key as there are not two positions in the Set with the same coordinates
       })}
     </div>
   </div>
 );
 
 HoveredList.propTypes = {
-  hovered: PropTypes.arrayOf(
-    PropTypes.shape({
-      col: PropTypes.number,
-      row: PropTypes.number,
-    })
-  ),
+  hovered: PropTypes.object,
 };
 
 HoveredList.defaultProps = {
