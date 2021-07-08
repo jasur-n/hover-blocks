@@ -24,7 +24,6 @@ const createSquareMatrix = (limit) => {
 
 const SquaresBlock = ({ fields, hovered, setHovered }) => {
   const [elements, setElements] = useState(null);
-  const squaresContainerRef = useRef(null);
 
   useEffect(() => {
     if (fields) {
@@ -32,47 +31,17 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
     }
   }, [fields]);
 
-  const hoverHandler = useCallback(
-    (event) => {
-      const newPosition = event.target.dataset?.position;
-
-      if (!newPosition) {
-        return;
-      }
-
-      setHovered((prevState) => {
-        const newHoveredList = new Set(prevState);
-        if (newHoveredList.has(newPosition)) {
-          newHoveredList.delete(newPosition);
-        } else {
-          newHoveredList.add(newPosition);
-        }
-        return newHoveredList;
-      });
-    },
-    [setHovered]
-  );
-
-  useEffect(() => {
-    const squaresContainer = squaresContainerRef.current;
-    if (squaresContainer && elements) {
-      squaresContainer.addEventListener("mouseover", hoverHandler);
-    }
-    return () => {
-      squaresContainer.removeEventListener("mouseover", hoverHandler);
-    };
-  }, [hoverHandler, elements]);
-
   return (
-    <div ref={squaresContainerRef} className={cx("wrapper")}>
+    <div className={cx("wrapper")}>
       {elements &&
         elements.map((row, rowIndex) => (
           <div className={cx("row")} key={row[0]}>
             {row.map((id, colIndex) => {
-              const position = `row ${rowIndex + 1} col ${colIndex + 1}`;
-              const isHovered = hovered.has(position);
               return (
-                <Square key={id} position={position} isHovered={isHovered} />
+                <Square
+                  position={{ row: rowIndex + 1, col: colIndex + 1 }}
+                  key={id}
+                />
               );
             })}
           </div>
