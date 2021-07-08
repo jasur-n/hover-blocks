@@ -7,12 +7,11 @@ import Snackbar from "../snackbar/snackbar";
 
 const cx = classNames.bind(styles);
 
-const HoveredList = ({ hovered }) => (
+const HoveredList = ({ highlightedSquares }) => (
   <div className={cx("wrapper")}>
     <h2>Hovered squares</h2>
     <div className={cx("container")}>
-      {/* translate a set to an array to get access to a map function */}
-      {[...hovered].map((el) => {
+      {highlightedSquares.map((el) => {
         return <Snackbar key={el} text={el} />; //position here is used as key as there are not two positions in the Set with the same coordinates
       })}
     </div>

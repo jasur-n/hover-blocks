@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 
@@ -7,13 +7,16 @@ import styles from "./squares-block.module.scss";
 
 const cx = classNames.bind(styles);
 
-const SquaresBlock = ({ fields, hovered, setHovered }) => {
-  let idCounter = 0;
-  let elements = Array(fields)
-    .fill(0)
-    .map((row) => new Array(fields).fill(1).map((el) => idCounter++));
-
-  console.log(elements);
+const SquaresBlock = ({ fields, setHighlightedSquares }) => {
+  const elements = useMemo(() => {
+    if (!fields) {
+      return [];
+    }
+    let idCounter = 0;
+    return Array(fields)
+      .fill(0)
+      .map((row) => new Array(fields).fill(1).map((el) => idCounter++));
+  }, [fields]);
 
   return (
     <div className={cx("wrapper")}>
@@ -23,7 +26,8 @@ const SquaresBlock = ({ fields, hovered, setHovered }) => {
             {row.map((id, colIndex) => {
               return (
                 <Square
-                  position={{ row: rowIndex + 1, col: colIndex + 1 }}
+                  position={`row ${rowIndex + 1} col ${colIndex + 1}`}
+                  setHighlightedSquares={setHighlightedSquares}
                   key={id}
                 />
               );

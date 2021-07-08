@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 const App = () => {
   const [modes, setModes] = useState(null);
   const [activeMode, setActiveMode] = useState("default");
-  const [hovered, setHovered] = useState(new Set());
+  const [highlightedSquares, setHighlightedSquares] = useState([]);
 
   //Fetch available modes from remote url and save data in state
   useEffect(() => {
@@ -24,7 +24,7 @@ const App = () => {
   }, []);
 
   const startHandler = (mode) => {
-    setHovered(new Set());
+    setHighlightedSquares([]);
     setActiveMode(mode);
   };
 
@@ -39,12 +39,12 @@ const App = () => {
           />
 
           <SquaresBlock
-            hovered={hovered}
-            setHovered={setHovered}
+            setHighlightedSquares={setHighlightedSquares}
             fields={modes && modes[activeMode]?.field}
           />
         </div>
-        <HoveredList hovered={hovered} />
+
+        <HoveredList highlightedSquares={highlightedSquares} />
       </div>
     </div>
   );
