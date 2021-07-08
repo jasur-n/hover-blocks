@@ -7,29 +7,13 @@ import styles from "./squares-block.module.scss";
 
 const cx = classNames.bind(styles);
 
-const createSquareMatrix = (limit) => {
-  return new Promise((resolve, reject) => {
-    const idsArray = [];
-    let id = 100;
-    for (let i = 0; i < limit; i++) {
-      const row = [];
-      for (let j = 0; j < limit; j++) {
-        row.push(id++);
-      }
-      idsArray.push(row);
-    }
-    resolve(idsArray);
-  });
-};
-
 const SquaresBlock = ({ fields, hovered, setHovered }) => {
-  const [elements, setElements] = useState(null);
+  let idCounter = 0;
+  let elements = Array(fields)
+    .fill(0)
+    .map((row) => new Array(fields).fill(1).map((el) => idCounter++));
 
-  useEffect(() => {
-    if (fields) {
-      createSquareMatrix(fields).then((matrix) => setElements(matrix));
-    }
-  }, [fields]);
+  console.log(elements);
 
   return (
     <div className={cx("wrapper")}>
