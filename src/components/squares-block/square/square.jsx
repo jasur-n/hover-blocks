@@ -31,7 +31,7 @@ const Square = ({ setHighlightedSquares, position }) => {
 
 Square.propTypes = {
   position: PropTypes.string.isRequired,
-  isHovered: PropTypes.bool.isRequired,
+  setHighlightedSquares: PropTypes.func.isRequired,
 };
 
 Square.defaultProps = {};

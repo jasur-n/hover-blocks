@@ -40,8 +40,7 @@ const SquaresBlock = ({ fields, setHighlightedSquares }) => {
 
 SquaresBlock.propTypes = {
   fields: PropTypes.number,
-  hovered: PropTypes.object.isRequired,
-  setHovered: PropTypes.func,
+  setHighlightedSquares: PropTypes.func.isRequired,
 };
 
 export default SquaresBlock;
