@@ -38,10 +38,12 @@ const App = () => {
             startHandler={startHandler}
           />
 
-          <SquaresBlock
-            setHighlightedSquares={setHighlightedSquares}
-            fields={modes && modes[activeMode]?.field}
-          />
+          {modes && (
+            <SquaresBlock
+              setHighlightedSquares={setHighlightedSquares}
+              fields={modes[activeMode]?.field}
+            />
+          )}
         </div>
 
         <HoveredList highlightedSquares={highlightedSquares} />

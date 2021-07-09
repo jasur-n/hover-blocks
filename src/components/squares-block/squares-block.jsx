@@ -12,7 +12,8 @@ const SquaresBlock = ({ fields, setHighlightedSquares }) => {
     if (!fields) {
       return [];
     }
-    let idCounter = 0;
+    let idCounter = fields * fields;
+    console.log(idCounter);
     return Array(fields)
       .fill(0)
       .map((row) => new Array(fields).fill(1).map((el) => idCounter++));
@@ -28,6 +29,7 @@ const SquaresBlock = ({ fields, setHighlightedSquares }) => {
                 <Square
                   position={`row ${rowIndex + 1} col ${colIndex + 1}`}
                   setHighlightedSquares={setHighlightedSquares}
+                  fields={fields}
                   key={id}
                 />
               );
