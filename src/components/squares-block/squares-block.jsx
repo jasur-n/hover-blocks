@@ -13,7 +13,6 @@ const SquaresBlock = ({ fields, setHighlightedSquares }) => {
       return [];
     }
     let idCounter = fields * fields;
-    console.log(idCounter);
     return Array(fields)
       .fill(0)
       .map((row) => new Array(fields).fill(1).map((el) => idCounter++));
