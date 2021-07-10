@@ -7,7 +7,11 @@ import styles from "./squares-block.module.scss";
 
 const cx = classNames.bind(styles);
 
-const SquaresBlock = ({ fields, setHighlightedSquares }) => {
+const SquaresBlock = ({
+  fields,
+  highlightedSquares,
+  setHighlightedSquares,
+}) => {
   const elements = useMemo(() => {
     if (!fields) {
       return [];
@@ -24,9 +28,12 @@ const SquaresBlock = ({ fields, setHighlightedSquares }) => {
         elements.map((row, rowIndex) => (
           <div className={cx("row")} key={row[0]}>
             {row.map((id, colIndex) => {
+              const position = `row ${rowIndex + 1} col ${colIndex + 1}`;
+              const isHighlighted = highlightedSquares.includes(position);
               return (
                 <Square
-                  position={`row ${rowIndex + 1} col ${colIndex + 1}`}
+                  position={position}
+                  isHighlighted={isHighlighted}
                   setHighlightedSquares={setHighlightedSquares}
                   fields={fields}
                   key={id}

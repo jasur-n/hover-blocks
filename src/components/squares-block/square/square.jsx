@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 
@@ -6,21 +6,17 @@ import styles from "./square.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Square = ({ setHighlightedSquares, position }) => {
-  const [isHighlighted, setIsHighlighted] = useState(false);
+const Square = ({ setHighlightedSquares, position, isHighlighted }) => {
   const mouseOverHandler = () => {
-    setIsHighlighted((prevState) => !prevState);
-  };
-
-  useEffect(() => {
     if (isHighlighted) {
-      setHighlightedSquares((prevState) => [...prevState, position]);
-    } else {
       setHighlightedSquares((prevState) =>
         prevState.filter((el) => el !== position)
       );
+    } else {
+      setHighlightedSquares((prevState) => [...prevState, position]);
     }
-  }, [isHighlighted, position, setHighlightedSquares]);
+  };
+
   return (
     <div
       onMouseOver={mouseOverHandler}

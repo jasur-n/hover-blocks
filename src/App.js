@@ -40,6 +40,7 @@ const App = () => {
 
           {modes && (
             <SquaresBlock
+              highlightedSquares={highlightedSquares}
               setHighlightedSquares={setHighlightedSquares}
               fields={modes[activeMode]?.field}
             />
